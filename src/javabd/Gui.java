@@ -58,7 +58,6 @@ public class Gui extends javax.swing.JFrame {
     private void initComponents() {
 
         frameLogin = new javax.swing.JFrame();
-        jLabel4 = new javax.swing.JLabel();
         inputContrasenia = new javax.swing.JTextField();
         inputServidor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -66,7 +65,6 @@ public class Gui extends javax.swing.JFrame {
         inputUser = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         botonConectar = new javax.swing.JButton();
-        inputBase = new javax.swing.JTextField();
         serverPane = new javax.swing.JTabbedPane();
         panel_Tablas = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -82,10 +80,10 @@ public class Gui extends javax.swing.JFrame {
         consolaBD = new javax.swing.JTextArea();
 
         frameLogin.setAlwaysOnTop(true);
-        frameLogin.setMinimumSize(new java.awt.Dimension(770, 200));
+        frameLogin.setMaximumSize(new java.awt.Dimension(321, 270));
+        frameLogin.setMinimumSize(new java.awt.Dimension(321, 270));
+        frameLogin.setPreferredSize(new java.awt.Dimension(321, 270));
         frameLogin.setResizable(false);
-
-        jLabel4.setText("Nombre de la Base de Datos");
 
         inputServidor.setText("localhost");
         inputServidor.setName("inputServer"); // NOI18N
@@ -102,55 +100,46 @@ public class Gui extends javax.swing.JFrame {
 
         botonConectar.setText("Conectar");
 
-        inputBase.setText("estudiantes");
-
         javax.swing.GroupLayout frameLoginLayout = new javax.swing.GroupLayout(frameLogin.getContentPane());
         frameLogin.getContentPane().setLayout(frameLoginLayout);
         frameLoginLayout.setHorizontalGroup(
             frameLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(frameLoginLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(frameLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
+                .addGroup(frameLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(botonConectar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(inputServidor)
-                    .addComponent(inputBase, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(frameLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(inputUser)
-                    .addComponent(inputContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botonConectar, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(inputContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                    .addComponent(inputUser, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         frameLoginLayout.setVerticalGroup(
             frameLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(frameLoginLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(frameLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(botonConectar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, frameLoginLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputServidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addGap(5, 5, 5)
-                        .addComponent(inputBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, frameLoginLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inputServidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inputUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inputContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonConectar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1075, 530));
+        setMinimumSize(new java.awt.Dimension(1075, 530));
+        setPreferredSize(new java.awt.Dimension(1075, 530));
 
         serverPane.setMinimumSize(new java.awt.Dimension(1053, 420));
 
@@ -580,7 +569,6 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo_tablas;
     private javax.swing.JTextArea consolaBD;
     private javax.swing.JFrame frameLogin;
-    private javax.swing.JTextField inputBase;
     private javax.swing.JTextField inputContrasenia;
     private javax.swing.JTextField inputQuery;
     private javax.swing.JTextField inputServidor;
@@ -588,7 +576,6 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
