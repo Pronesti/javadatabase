@@ -99,7 +99,7 @@ public class Gui extends javax.swing.JFrame {
 
         botonConectar.setText("Conectar");
 
-        inputBase.setText("estu_diantes");
+        inputBase.setText("estudiantes");
 
         javax.swing.GroupLayout frameLoginLayout = new javax.swing.GroupLayout(frameLogin.getContentPane());
         frameLogin.getContentPane().setLayout(frameLoginLayout);
@@ -459,20 +459,13 @@ public class Gui extends javax.swing.JFrame {
            while(consulta.next()){
                         cantidadfilas++;                        
                }
-            System.out.println(cantidadcolumnas + " x " + cantidadfilas);
+            System.out.println(cantidadcolumnas + " x " +cantidadfilas);
             
            
-            if (cantidadfilas < cantidadcolumnas) {  //FIX no acepta menor cantidad de filas que de columnas
-                cantidadfilas = cantidadcolumnas;    
-            }else{
-                
-        }
-            
-              System.out.println(cantidadcolumnas + " x " + cantidadfilas);
-              
+           
            //CREA OBJETO                           [cantidadcolumnas][cantidadfilas]              
-                Object[][] informacion = new Object[cantidadcolumnas][cantidadfilas]; //(necesita 6 para ser lineal)
-            //
+                //Object[][] informacion = new Object[cantidadcolumnas+1][cantidadfilas]; //(necesita 6 para ser lineal)
+                Object[][] informacion = new Object[cantidadfilas][cantidadcolumnas]; //(necesita 6 para ser lineal)
             
            //LLENA OBJETO  FIXXX THIS
            consulta = stmt.executeQuery("SELECT * FROM " + nombre_tabla);
