@@ -1,5 +1,6 @@
 # javadatabase
 
-Problemas actuales: 
-* Solo puede conectar a una base de datos y no a un servidor para elegirla
-* No acepta matrices de 6x1 o 2x4
+Caracteristicas: 
+* Se puede seleccionar direccion del servidor, nombre de usuario, contraseña
+* Lista los elementos al seleccionar la Base y Tabla.
+* Realiza Querys sobre la tabla seleccionada.
