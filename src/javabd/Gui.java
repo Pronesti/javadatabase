@@ -45,6 +45,8 @@ public class Gui extends javax.swing.JFrame {
     }
     
     public Conexion conexion = new Conexion();
+    public Conexion conexionBD = new Conexion();
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,6 +72,7 @@ public class Gui extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaBD = new javax.swing.JTable();
         combo_tablas = new javax.swing.JComboBox<>();
+        combo_bases = new javax.swing.JComboBox<>();
         panel_Querys = new javax.swing.JPanel();
         inputQuery = new javax.swing.JTextField();
         botonQuery = new javax.swing.JButton();
@@ -169,6 +172,17 @@ public class Gui extends javax.swing.JFrame {
                 combo_tablasItemStateChanged(evt);
             }
         });
+        combo_tablas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_tablasActionPerformed(evt);
+            }
+        });
+
+        combo_bases.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combo_basesItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_TablasLayout = new javax.swing.GroupLayout(panel_Tablas);
         panel_Tablas.setLayout(panel_TablasLayout);
@@ -177,16 +191,19 @@ public class Gui extends javax.swing.JFrame {
             .addGroup(panel_TablasLayout.createSequentialGroup()
                 .addGroup(panel_TablasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1038, Short.MAX_VALUE)
-                    .addComponent(combo_tablas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(combo_tablas, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(combo_bases, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panel_TablasLayout.setVerticalGroup(
             panel_TablasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_TablasLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(combo_tablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(combo_bases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addComponent(combo_tablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -236,7 +253,7 @@ public class Gui extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonClear)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -255,8 +272,8 @@ public class Gui extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(serverPane, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(serverPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -266,12 +283,26 @@ public class Gui extends javax.swing.JFrame {
     private void combo_tablasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_tablasItemStateChanged
         String nombre_tabla = combo_tablas.getSelectedItem().toString();
         try{
-            java.sql.Statement stmt = conexion.conectar().createStatement();
+        java.sql.Statement stmt = conexion.conectar().createStatement();
         llenarTabla(stmt, nombre_tabla);
         }catch(Exception ex){
             System.out.println(ex);
         }
     }//GEN-LAST:event_combo_tablasItemStateChanged
+
+    private void combo_tablasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_tablasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combo_tablasActionPerformed
+
+    private void combo_basesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_basesItemStateChanged
+        try{
+            conectarDos(combo_bases.getSelectedItem().toString());
+            java.sql.Statement stmt = conexion.conectar().createStatement();
+            cargarTablas(stmt, combo_bases.getSelectedItem().toString()); //CARGA TODAS LAS TABLAS EN LA BASE DE DATOS
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_combo_basesItemStateChanged
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -326,7 +357,7 @@ public class Gui extends javax.swing.JFrame {
                botonConectar.addActionListener(new ActionListener() {
             @Override
     public void actionPerformed(ActionEvent e) {
-        conectar();
+        conectarUno("estudiantes");
          frameLogin.setVisible(false);
         //serverPane.setSelectedIndex(1);
         
@@ -374,13 +405,12 @@ public class Gui extends javax.swing.JFrame {
         
     }
     
-    public void conectar()
+    public void conectarUno(String nombreBase)
     {
-    String username, password,url,nombreBase;
+    String username, password,url;
       
       username = inputUser.getText();
       password = inputContrasenia.getText();
-      nombreBase = inputBase.getText();
       url = "jdbc:mysql://" + inputServidor.getText() + "/" + nombreBase;    
         
         conexion.setUrl(url);
@@ -390,7 +420,8 @@ public class Gui extends javax.swing.JFrame {
         try {
             java.sql.Statement stmt = conexion.conectar().createStatement();
             
-           cargarTablas(stmt, nombreBase); //CARGA TODAS LAS TABLAS EN LA BASE DE DATOS
+           cargarBases(stmt);
+           cargarTablas(stmt, combo_bases.getItemAt(0)); //CARGA TODAS LAS TABLAS EN LA BASE DE DATOS
             
            String nombre_tabla = combo_tablas.getItemAt(0);  // TOMA POR DEFECTO LA PRIMERA TABLA        
             
@@ -399,12 +430,68 @@ public class Gui extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println(ex);
         }
+    }
+    
+     public void conectarDos(String nombreBase)
+    {
+    String username, password,url;
+      
+      username = inputUser.getText();
+      password = inputContrasenia.getText();
+      url = "jdbc:mysql://" + inputServidor.getText() + "/" + nombreBase;    
         
-        
-        
-}
+        conexion.setUrl(url);
+        conexion.setNombre(username);
+        conexion.setClave(password);  
+
+        try {
+            java.sql.Statement stmt = conexion.conectar().createStatement();
+            
+           cargarTablas(stmt, combo_bases.getItemAt(0)); //CARGA TODAS LAS TABLAS EN LA BASE DE DATOS
+            
+           String nombre_tabla = combo_tablas.getItemAt(0);  // TOMA POR DEFECTO LA PRIMERA TABLA        
+            
+          llenarTabla(stmt, nombre_tabla);  // LLENA EL COMPONENTE JTABLE CON LA INFORMACION DE LA TABLA SELECCIONADA EN LA BASE DE DATOS
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+    
+    
+    
+     public void cargarBases(java.sql.Statement stmt){
+         try{
+             java.sql.ResultSet tablas = stmt.executeQuery("SHOW DATABASES");
+         
+        int cantidad_bases = 0;
+            while (tablas.next()){
+                cantidad_bases++;
+            }
+            tablas = stmt.executeQuery("SHOW DATABASES");
+            String[] bases_bd = new String[cantidad_bases];
+            int t=0;
+            while (tablas.next()){
+                bases_bd[t] = tablas.getString(1);               
+                t++;
+            }
+            
+            DefaultComboBoxModel cmb_model_base;
+            cmb_model_base = (DefaultComboBoxModel) combo_bases.getModel(); 
+             System.out.println(cantidad_bases);
+            for (int i = 0; i < cantidad_bases; i++) {
+             combo_bases.addItem(bases_bd[i]); 
+                System.out.println("base "+ i + ": " + bases_bd[i]);
+            }
+            combo_bases.repaint();
+         }catch(Exception ex){
+             System.out.println(ex);
+         }
+    }
+
     
     public void cargarTablas(java.sql.Statement stmt,String nombreBase){
+        combo_tablas.removeAllItems();
          try{
              //CARGA TODAS LAS TABLAS DE LA BASE DE DATOS
              java.sql.ResultSet tablas = stmt.executeQuery("SHOW TABLES IN "+ nombreBase);
@@ -421,10 +508,7 @@ public class Gui extends javax.swing.JFrame {
                 
                 t++;
             }
-            
-            for (int i = 0; i < tablas_bd.length; i++) {
-              System.out.println(tablas_bd[i]);
-            }
+           
             
             DefaultComboBoxModel cmb_model;
             cmb_model = (DefaultComboBoxModel) combo_tablas.getModel(); 
@@ -492,6 +576,7 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JButton botonClear;
     private javax.swing.JButton botonConectar;
     private javax.swing.JButton botonQuery;
+    private javax.swing.JComboBox<String> combo_bases;
     private javax.swing.JComboBox<String> combo_tablas;
     private javax.swing.JTextArea consolaBD;
     private javax.swing.JFrame frameLogin;
