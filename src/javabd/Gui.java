@@ -461,16 +461,29 @@ public class Gui extends javax.swing.JFrame {
             String[] bases_bd = new String[cantidad_bases];
             int t=0;
             while (tablas.next()){
-                bases_bd[t] = tablas.getString(1);               
-                t++;
+                switch(tablas.getString(1)){
+                    case "mysql":
+                        break;
+                    case "information_schema":
+                        break;
+                    case "phpmyadmin":
+                        break;
+                    case "performance_schema":
+                        break;
+                    default:
+                      bases_bd[t] = tablas.getString(1);
+                      t++;
+                      break;
+                }                    
+                
             }
             
             DefaultComboBoxModel cmb_model_base;
             cmb_model_base = (DefaultComboBoxModel) combo_bases.getModel(); 
-             System.out.println(cantidad_bases);
-            for (int i = 0; i < cantidad_bases; i++) {
+            // System.out.println(cantidad_bases);
+            for (int i = 0; i < t; i++) {
              combo_bases.addItem(bases_bd[i]); 
-                System.out.println("base "+ i + ": " + bases_bd[i]);
+               // System.out.println("base "+ i + ": " + bases_bd[i]);
             }
             combo_bases.repaint();
          }catch(Exception ex){
@@ -532,7 +545,7 @@ public class Gui extends javax.swing.JFrame {
            while(consulta.next()){
                         cantidadfilas++;                        
                }
-            System.out.println(cantidadcolumnas + " x " +cantidadfilas);
+           // System.out.println(cantidadcolumnas + " x " +cantidadfilas);
             
            
            
